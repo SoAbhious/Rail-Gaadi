@@ -179,6 +179,16 @@ class BookingView(APIView):
             serializer = BookingSerializer(data, many=True)
         return Response(serializer.data)
 
+    def post(self, request):
+        data = request.data
+        serializer = NewBookingSerializer(data=data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, safe=False)
+        return JsonResponse(serializer.errors, safe=False)
+
+
 
 class TicketView(APIView):
 
@@ -197,6 +207,15 @@ class TicketView(APIView):
             data = Ticket.objects.all()
             serializer = TicketSerializer(data, many=True)
         return Response(serializer.data)
+
+    def post(self, request):
+        data = request.data
+        serializer = TicketPostSerializer(data=data, many=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, safe=False)
+        return JsonResponse(serializer.errors, safe=False)
 
 
 class PassengerView(APIView):
@@ -334,7 +353,7 @@ class RouteView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse("Route added successfully!", safe=False)
+            return Response(serializer.data)
         return JsonResponse("Failed to add route!", safe=False)
 
     def put(self, request, pk=None):
@@ -350,13 +369,77 @@ class RouteView(APIView):
         route = Route.objects.get(id=pk)
         route.delete()
         return JsonResponse("Route deleted successfully!", safe=False)
-# class UserList(generics.ListCreateAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-#     # permission_classes = [permissions.IsAuthenticated]
+
+
+class HelperView(APIView):
+
+    def post(self, request):
+        data = request.data
+        serializer = HelperSerializer(data=data, many=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse("Route stations added successfully", safe=False)
+        return JsonResponse(serializer.errors, safe=False)
+
+
+class HelperNewView(APIView):
+
+    def post(self, request):
+        source = request.POST.get('source')
+        destination = request.POST.get('destination')
+        date = request.POST.get('date')
+        sourceRoutes = Helper.objects.filter(station=source)
+        destRoutes = Helper.objects.filter(station=destination)
+        sourceRoutes = [train for train in sourceRoutes if train.route in (route.route for route in destRoutes)]
+        for train in sourceRoutes:
+            for route in destRoutes:
+                if train.route == route.route:
+                    train.diff = route.number-train.number
+                    break
+        trainStatus = TrainStatus.objects.filter(date=date)
+        trains = [source for source in trainStatus if source.route in (route.route for route in sourceRoutes)]
+        for train in trains:
+            for route in sourceRoutes:
+                if train.route == route.route:
+                    train.stations = route.diff
+                    break
+        serializer = TrainStatusSerializer(trains, many=True)
+        return Response(serializer.data)
+
+
+class AvailableTrainsAPIView(APIView):
+
+    def get(self, request):
+        route = request.GET.get('route')
+        date = request.GET.get('date')
+        trains = TrainStatus.objects.filter(route=route, date=date)
+        serializer = TrainStatusSerializer(trains, many=True)
+        return Response(serializer.data)
+
+
+class NewPassengerView(APIView):
+
+    def post(self, request):
+        data = request.data
+        serializer = PassengerSerializer(data=data, many=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, safe=False)
+        return JsonResponse(serializer.errors, safe=False)
+
+
+# def put(self, request, pk=None):
+#     route = Route.objects.get(id=pk)
+#     serializer = RouteSerializerPutPost(instance=route, data=request.data, partial=True)
 #
+#     if serializer.is_valid():
+#         serializer.save()
+#         return JsonResponse("Route data updated successfully!", safe=False)
+#     return JsonResponse("Route failed to update!", safe=False)
 #
-# class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-#     # permission_classes = [permissions.IsAuthenticated]
+# def delete(self, request, pk=None):
+#     route = Route.objects.get(id=pk)
+#     route.delete()
+#     return JsonResponse("Route deleted successfully!")

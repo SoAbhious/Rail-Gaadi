@@ -21,6 +21,10 @@ urlpatterns = [
     path('user-login', views.UserView.user_login),
     path('verify-user/<int:id>', views.UserView.verify_user),
     path('route/', views.RouteView.as_view()),
+    path('route-stations/', views.HelperView.as_view()),
     path('route/<int:pk>/', views.RouteView.as_view()),
+    path('helper-route/', views.HelperNewView.as_view()),
+    path('helper-train/', views.AvailableTrainsAPIView.as_view()),
+    path('post-passengers/', views.NewPassengerView.as_view()),
     # path('add/', views.addData),
 ]

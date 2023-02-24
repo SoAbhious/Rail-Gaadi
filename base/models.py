@@ -7,6 +7,7 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.core.mail import send_mail
 from django.db import models
+from rest_framework import serializers
 
 
 class Admin(models.Model):
@@ -223,7 +224,7 @@ class Helper(models.Model):
     number = models.IntegerField(blank=False, null=False)
 
     def __str__(self):
-        return f'{self.route} {self.station}'
+        return f'{self.route} {self.number}'
 
     class Meta:
         managed = False
@@ -278,6 +279,10 @@ class TrainStatus(models.Model):
     ac2 = models.IntegerField()
     ac3 = models.IntegerField()
     status = models.CharField(max_length=9, blank=True, null=False)
+    date = models.DateField(blank=False, null=False)
+    time = models.TimeField(blank=False, null=False)
+    route = models.ForeignKey(Route, on_delete=models.CASCADE, db_column='route')
+    stations = models.IntegerField(default=0)
 
     def __str__(self):
         return f'{self.train}'

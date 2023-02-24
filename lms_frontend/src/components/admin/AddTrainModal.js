@@ -82,7 +82,7 @@ const AddTrainModal = (props) => {
                             <Form.Label>From</Form.Label>
                             <span>&nbsp; &nbsp;</span>
                             <select name="source" value={formData.source} onChange={handleChange}
-                            defaultValue={{label: "choose a station"}} required>
+                            required>
                                 <option value="">Choose a station</option>
                                 {station && station.map(st => (
                                     <option key={st.id} value={st.id} >

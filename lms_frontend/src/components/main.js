@@ -25,6 +25,9 @@ import AdminTicket from './admin/ticket';
 import AdminTrains from './admin/trains';
 import AdminRoutes from './admin/routes';
 import AddRoutes from './admin/AddRoute'
+import BookTrain from './bookTrain';
+import Ticket from './user/ticket';
+import Payment from './user/payment';
 
 
 function Main() {
@@ -54,6 +57,9 @@ function Main() {
           <Route path='/verify-user/:id' element={<VerifyUser/>} />
           <Route path='/routes' element={<AdminRoutes/>} />
           <Route path='/add-routes' element={<AddRoutes/>} />
+          <Route path='/bookTrain' element={<BookTrain/>} />
+          <Route path='/book-ticket' element={<Ticket/>} />
+          <Route path='/payment' element={<Payment/>} />
         </Routes>
         {/* <Footer/> */}
       </div>

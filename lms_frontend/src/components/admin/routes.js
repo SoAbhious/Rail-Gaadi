@@ -33,7 +33,7 @@ const AdminRoutes = () => {
             mounted = false;
             setIsupdated(false); 
         }; 
-    }, [isUpdated]);
+    }, [isUpdated, route]);
 
     // const handleUpdate = (e, us) => {
     //     e.preventDefault();

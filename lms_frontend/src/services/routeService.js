@@ -31,3 +31,7 @@ export function deleteRoute(id) {
     })
         .then(response => response.data)
 }
+
+export function addRouteStations(finalForm) {
+    return axios.post('http://127.0.0.1:8000/base/route-stations/', finalForm)
+}

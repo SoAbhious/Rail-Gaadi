@@ -50,7 +50,7 @@ position: relative;
 .finput{
    height:100%;
    width:100%;
-   padding-left: 18px;
+   padding-left: 40px;
    font-size:18px ;
    outline: none;
    border: none;
@@ -253,5 +253,36 @@ button:hover.icon-button span:hover{
    }
  }
 
+flexParent {
+display: flex;
+width: 50%;
+}
 
+.flexfChild {
+   flex: 1;
+   border: 2px solid blueviolet;
+   margin: 10px;
+   margin-right: 20px;
+}
+
+.flexsChild {
+   flex: 1;
+   border: 2px solid blueviolet;
+   margin: 5px;
+   font-size: 10px;
+}
+
+.iconDiv {
+   display: block;
+   position: relative;
+}
+
+.searchIcon { 
+   display: flex;
+   position: absolute;
+   left: 8px;
+   top: 25px;
+   align-items: center;
+   justify-content: center;
+}
  

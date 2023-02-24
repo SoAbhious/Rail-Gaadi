@@ -47,16 +47,16 @@ const AdminUsers = () => {
                                 <tbody>
                                     {user.map((us) => 
                                         <tr key={us.id}> 
-                                        <td>{us.id}</td>
-                                        <td>{us.username}</td>
-                                        <td>{us.firstname}</td>
-                                        <td>{us.lastname}</td>
-                                        <td>{us.password}</td>
-                                        <td>{us.gender}</td>
-                                        <td>{us.dob}</td>
-                                        <td>{us.email}</td>
-                                        <td>{us.phone}</td>
-                                        <td>{us.aadhar}</td>
+                                            <td>{us.id}</td>
+                                            <td>{us.username}</td>
+                                            <td>{us.firstname}</td>
+                                            <td>{us.lastname}</td>
+                                            <td>{us.password}</td>
+                                            <td>{us.gender}</td>
+                                            <td>{us.dob}</td>
+                                            <td>{us.email}</td>
+                                            <td>{us.phone}</td>
+                                            <td>{us.aadhar}</td>
                                         </tr> 
                                     )}
                                 </tbody>

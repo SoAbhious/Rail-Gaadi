@@ -16,6 +16,13 @@ class TicketSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class TicketPostSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Ticket
+        fields = '__all__'
+
+
 class BookingSerializer(serializers.ModelSerializer):
     ticket = TicketSerializer(many=True, read_only=True)
 
@@ -23,6 +30,14 @@ class BookingSerializer(serializers.ModelSerializer):
         model = Booking
         fields = '__all__'
         depth = 1
+
+
+class NewBookingSerializer(serializers.ModelSerializer):
+    ticket = TicketSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Booking
+        fields = '__all__'
 
 
 class UserSerializer2(serializers.ModelSerializer):
@@ -79,6 +94,12 @@ class TrainSerializerPostPut(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class HelperSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Helper
+        fields = '__all__'
+
+
 class RouteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Route
@@ -90,4 +111,11 @@ class RouteSerializerPutPost(serializers.ModelSerializer):
     class Meta:
         model = Route
         fields = '__all__'
+
+
+class TrainStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TrainStatus
+        fields = '__all__'
+        depth = 1
 

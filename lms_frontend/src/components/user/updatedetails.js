@@ -30,6 +30,9 @@ function UserUpdateDetails() {
                     setUser(response.data)
                 }
             })
+            .catch((error) => {
+                console.log(error.response)
+            })
         return () => {
             mounted = false;
         }; 
@@ -58,7 +61,7 @@ function UserUpdateDetails() {
                     <Sidebar />
                 </aside>
                 <section className="col-md-9">
-                    <div className='card'>
+                    <div className='card mb-4' style={{boxShadow: 'rgba(0, 0, 0, 0.2) 0px 60px 40px -7px'}}>
                         <div className='card-header'>Update details</div>
                         <div className='card-body'>
                         <Form onSubmit={handleSubmit}>

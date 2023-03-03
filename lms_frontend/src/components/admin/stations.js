@@ -1,17 +1,18 @@
-import {Link} from 'react-router-dom'
-import Sidebar from './sidebar';
-import {useState, useEffect} from 'react';
-import { getUserPassenger, deletePassenger } from '../../services/userService';
-import UpdatePassengerModal from './UpdatePassenger';
-import AddPassengerModal from './AddPassenger';
-import {ButtonToolbar} from 'react-bootstrap';
+import React, {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
+import {addStation, getStation} from '../../services/stationService';
+import {Button, ButtonToolbar} from 'react-bootstrap';
+import AddStationModal from './AddStationModal';
+import UpdateStationModal from './UpdateStationModal';
+import {deleteStation} from '../../services/stationService';
 
-function Passengers() {
 
-    const [user, setUser] = useState([]);
+
+const Stations = () => {
+    const [station, setStation] = useState([]);
     const [addModalShow, setAddModalShow] = useState(false);
     const [editModalShow, setEditModalShow] = useState(false);
-    const [editPassenger, setEditPassenger] = useState([]);
+    const [editStation, setEditStation] = useState([]);
     const [isUpdated, setIsupdated] = useState(false);
 
     let AddModalClose = () => setAddModalShow(false);
@@ -19,18 +20,19 @@ function Passengers() {
 
     useEffect(() => {
         let mounted = true;
-        if(user.length && !isUpdated) {
+        if(station.length && !isUpdated) {
             return;
         }
-        getUserPassenger()
-        .then(data => {
-            if(mounted) {
-                setUser(data)
-            }
+        getStation()
+            .then(data => {
+                if(mounted) {
+                    setStation(data)
+                    console.log(data)
+                }
             })
-        .catch((error) => {
-            console.log(error.response)
-        })
+            .catch((error) => {
+                console.log(error.response)
+            })
         return () => {
             mounted = false;
             setIsupdated(false); 
@@ -42,71 +44,67 @@ function Passengers() {
         setAddModalShow(true);
     };
 
-    const handleUpdate = (e, pass) => {
+    const handleUpdate = (e, us) => {
         e.preventDefault();
         setEditModalShow(true);
-        setEditPassenger(pass);
+        setEditStation(us);
     };
 
     const handleDelete = (e, id) => {
         if(window.confirm('Are you sure?')) {
             e.preventDefault();
-            deletePassenger(id)
+            deleteStation(id)
             .then((result) =>{
                 alert(result);
                 setIsupdated(true);
             },
             (error)=>{
-                alert('Failed to delete passenger!')
+                alert('Failed to delete train!')
             }
             );
         }
     };
-    
-
 
     return (
         <div className="container mt-4">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
             <div className="row">
-                <aside className="col-md-3">
-                    <Sidebar />
-                </aside>
-                <section className="col-md-9">
-                    <div className='card' 
-                    style={{boxShadow: 'rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px'}}>
-                        <h5 className='card-header'>My passengers</h5>
+                <section>
+                    <div className='card mb-4' style={{boxShadow: 'rgb(38, 57, 77) 0px 20px 30px -10px'}}>
+                        <h5 className='card-header'>Stations</h5>
                         <div className='card-body'>
                             <table className='table table-bordered'>
                                 <thead>
                                     <tr>
+                                        <th>ID</th>
                                         <th>Name</th>
-                                        <th>Age</th>
-                                        <th>Mobile No.</th>
+                                        <th>Station code</th>
+                                        <th>Address</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {user.passenger1 && user.passenger1.map((pass) =>
-                                        <tr key = { pass.id } >
-                                            <td>{pass.name}</td>
-                                            <td>{pass.age}</td>
-                                            <td>{pass.mobile}</td>
-                                            <td> 
+                                    {station && station.map((station) => 
+                                        <tr key={station.id}> 
+                                            <td>{station.id}</td>
+                                            <td>{station.name}</td>
+                                            <td>{station.station_code}</td>
+                                            <td>{station.address}</td>
+                                            <td>
                                                 <button type="button" className="btn btn-danger btn-sm"
-                                                onClick={event => handleDelete(event, pass.id)}>
+                                                onClick={event => handleDelete(event, station.id)}>
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
                                                 <span>&nbsp; &nbsp;</span>
                                                 <button type="button" className="btn btn-primary btn-sm" 
-                                                onClick={event => handleUpdate(event, pass)}>
-                                                    <i className="fa-solid fa-pen-to-square"></i>
+                                                onClick={event => handleUpdate(event, station)}>
+                                                    <i class="fa-solid fa-pen-to-square"></i>
                                                 </button>
-                                                <UpdatePassengerModal show={editModalShow} onHide={EditModalClose}
-                                                passenger = {editPassenger} setUpdated={setIsupdated}>
-                                                </UpdatePassengerModal>
+                                                <UpdateStationModal show={editModalShow} onHide={EditModalClose}
+                                                station = {editStation} setUpdated={setIsupdated}>
+                                                </UpdateStationModal>
                                             </td>
-                                        </tr>
+                                        </tr> 
                                     )}
                                 </tbody>
                             </table>
@@ -114,14 +112,16 @@ function Passengers() {
                                 <button onClick={handleAdd} type="button" className="btn btn-success">
                                     Add
                                 </button>
-                                <AddPassengerModal show={addModalShow} onHide={AddModalClose} setUpdated={setIsupdated}></AddPassengerModal>
+                                <AddStationModal show={addModalShow} onHide={AddModalClose} setUpdated={setIsupdated}></AddStationModal>
                             </ButtonToolbar>
                         </div>
                     </div>
                 </section>
             </div>
         </div>    
-    );
-}
+    );    
 
-export default Passengers;
+};
+    
+
+export default Stations;

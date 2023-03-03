@@ -30,11 +30,11 @@ const AddRoutes = () => {
             addRouteStations(finalForm)
                 .then((result) => {
                     alert("Intermediate stations added successfully!!");
-                },
+                     },
                     (error) => {
                         console.log(error.response.data)
                         alert("Failed to add intermediate stations!");
-                    });
+                });
         }
         fetch('http://127.0.0.1:8000/base/station/')
             .then(response => response.json())

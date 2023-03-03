@@ -25,9 +25,12 @@ const AdminRoutes = () => {
         }
         getRoute()
             .then(data => {
-            if(mounted) {
-                setRoute(data)
-            }
+                if(mounted) {
+                    setRoute(data)
+                }
+            })
+            .catch((error) => {
+                console.log(error.response)
             })
         return () => {
             mounted = false;
@@ -61,7 +64,7 @@ const AdminRoutes = () => {
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
             <div className="row">
                 <section>
-                    <div className='card'>
+                    <div className='card' style={{boxShadow: 'rgb(38, 57, 77) 0px 20px 30px -10px'}}>
                         <h5 className='card-header'>Trains</h5>
                         <div className='card-body'>
                             <table className='table table-bordered'>

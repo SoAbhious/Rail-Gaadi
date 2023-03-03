@@ -19,14 +19,17 @@ function AdminUpdateDetails() {
 
     useEffect(() => {
         let mounted = true;
-        if(admin.length) {
+        if(admin.length) {  
             return;
         }
         getAdmin()
             .then(data => {
-            if(mounted) {
-                setAdmin(data)
-            }
+                if(mounted) {
+                    setAdmin(data)
+                }
+            })
+            .catch((error) => {
+                console.log(error.response)
             })
         return () => {
             mounted = false;
@@ -55,7 +58,7 @@ function AdminUpdateDetails() {
                     <Sidebar />
                 </aside>
                 <section className="col-md-9">
-                    <div className='card'>
+                    <div className='card mb-4' style={{boxShadow: 'rgb(38, 57, 77) 0px 20px 30px -10px'}}>
                         <div className='card-header'>Update details</div>
                         <div className='card-body'>
                         <Form onSubmit={handleSubmit}>

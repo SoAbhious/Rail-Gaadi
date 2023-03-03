@@ -50,7 +50,7 @@ function UserLogin() {
 
     return (
         <div className={loginCSS.logtainer}>
-            <section className={loginCSS.logdiv}>
+            <section className={loginCSS.logdiv} style={{boxShadow: 'rgba(0, 0, 0, 0.45) 0px 25px 20px -20px'}}>
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"/>
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
                 <meta charset="UTF-8"/>

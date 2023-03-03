@@ -11,10 +11,12 @@ const Ticket = () => {
 
     const navigate = useNavigate()
 
+
     let userid = localStorage.getItem('userid')
     userid = userid.toString()
 
     const [user, setUser] = useState([])
+    const [payment, setPayment] = useState('')
     const [passengers, setPassengers] = useState([
         {
             name: '',
@@ -53,6 +55,9 @@ const Ticket = () => {
             .then(data => {
                 setUser(data)
             })
+            .catch((error) => {
+                console.log(error.response)
+            })
     }, [])
 
     const handleFormChange = (e, index) => {
@@ -86,6 +91,9 @@ const Ticket = () => {
             .then(data => {
                 helper = [...data]
             })
+            .catch((error) => {
+                console.log(error.response)
+            })
         let ticket = []    
         let finalForm = {}
         finalForm.userid = userid;
@@ -95,6 +103,19 @@ const Ticket = () => {
         finalForm.class_field = formData.class
         finalForm.traveldate = formData.date
         finalForm.fare = (formData.baseFare*passengers.length).toString()
+
+        let cls = formData.class;
+        if(formData.class=='sl') {
+            formData.class ='SL'
+        } else if(formData.class=='ac1') {
+            formData.class ='1A'
+        } else if(formData.class=='ac2') {
+            formData.class ='2A'
+        } else {
+            formData.class ='3A'
+        }
+        let seats = formData[cls]-passengers.length
+
         axios.post('http://127.0.0.1:8000/base/booking/', finalForm)
             .then(response => response.data)
             .then(data => {
@@ -108,8 +129,15 @@ const Ticket = () => {
                 axios.post('http://127.0.0.1:8000/base/ticket/', ticket)
             })
             .then(() => {
-                navigate('/payment')
+                navigate('/payment', {state: {bookingId: ticket[0]["bookingid"], mode: payment, fare: finalForm.fare, id: formData.id, class: formData.class, seats: seats}})
             })
+            .catch((error) => {
+                console.log(error.response)
+            })
+    }
+
+    const handlePayment = (e) => {
+        setPayment(e.target.value)
     }
 
     return (
@@ -183,11 +211,13 @@ const Ticket = () => {
                             })}
                         </Form>
                         <br />
-                        <div className="mt-3 ">
+                        {passengers.length < formData[formData.class] && 
+                            <div className="mt-3 ">
                             <Button onClick={addFields} variant="primary">
                                 Add another
                             </Button>
                         </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -204,9 +234,11 @@ const Ticket = () => {
                 <div className='card-header fw-bold h5'>Payment mode</div>
                 <div className='card-body mt-2 d-flex'>
                     <form>
-                        <input type="radio" id="html" name="fav_language" value="HTML" />
+                        <input onClick={(e) => handlePayment(e)} 
+                        type="radio" id="card" name="fav_language" value="card" required/>
                         <label className='ms-1' for="html">Pay through Credit & Debit cards</label><br />
-                        <input type="radio" id="css" name="fav_language" value="CSS" />
+                        <input onClick={(e) => handlePayment(e)} 
+                        type="radio" id="upi" name="fav_language" value="upi" required/>
                         <label className='ms-1' for="css">Pay through BHIM/UPI</label><br />
                     </form>
                 </div>

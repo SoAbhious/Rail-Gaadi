@@ -11,10 +11,11 @@ html{
    background-size: cover;
    height: 100%;
 }
-body{ 
-   background-image: url(image3.jpg);
 
+body{ 
+   background-image: url(fox2.jpg);
 }
+
 .hbody {
    display:grid;
    place-items: center;
@@ -30,7 +31,7 @@ body{
    border-radius:10px;
    padding:40px 30px;
    margin-top: 9%;
-   box-shadow: -3px -3px 9px  #aaa9a9a2 ,
+   box-shadow: -3px -3px 9px  #030303a2 ,
    3px 3px 7px rgba(147,149,151,0.67);
    backdrop-filter: blur(20px);
 }
@@ -54,14 +55,14 @@ position: relative;
    font-size:18px ;
    outline: none;
    border: none;
-   color: #e0d2d2;
+   color: #676565;
    border:1px solid rgba(255, 255, 255, 0.438);
    border-radius:8px;
    background-color:rgba(105,105,105,0);
 }
 
 .finput::placeholder{
-   color: #fff;
+   color: rgb(57, 56, 56);
 }
 .cfield:nth-child(2){
    margin-top: 20px;
@@ -79,7 +80,7 @@ position: relative;
    margin:25px 0 0 0;
    width:100%;
    height:50px;
-   color: rgb(238, 226, 226);
+   color: rgb(245, 240, 240);
    font-size:18px;
    font-weight: 600;
    border:2px solid rgba(255, 255, 255, 0.438);

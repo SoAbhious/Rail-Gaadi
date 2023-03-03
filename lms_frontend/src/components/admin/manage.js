@@ -5,6 +5,7 @@ import {Button, ButtonToolbar} from 'react-bootstrap';
 import AddUserModal from './AddUserModal';
 import UpdateUserModal from './UpdateUserModal';
 import {deleteUser} from '../../services/userService';
+import axios from 'axios';
 
 
 const AdminManage = () => {
@@ -14,16 +15,25 @@ const AdminManage = () => {
     const [editUser, setEditUser] = useState([]);
     const [isUpdated, setIsupdated] = useState(false);
 
+    // pagination variables
+    const [prev,setPrev] = useState()
+    const [next,setNext] = useState()
+
     useEffect(() => {
         let mounted = true;
         if(user.length && !isUpdated) {
             return;
         }
-        getUser()
-            .then(data => {
+        axios.get('http://127.0.0.1:8000/base/user/')
+            .then(response => {
             if(mounted) {
-                setUser(data)
+                setUser(response.data.results)
+                setPrev(response.data.previous)
+                setNext(response.data.next)
             }
+            })
+            .catch((error) => {
+                console.log(error.response)
             })
         return () => {
             mounted = false;
@@ -57,6 +67,19 @@ const AdminManage = () => {
         }
     };
 
+    const paginationHandler = (url) => {
+        try {
+            axios.get(url)
+                .then((response) => {
+                    setNext(response.data.next)
+                    setPrev(response.data.previous)
+                    setUser(response.data.results)
+                });
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
     let AddModalClose = () => setAddModalShow(false);
     let EditModalClose = () => setEditModalShow(false);
@@ -66,7 +89,7 @@ const AdminManage = () => {
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
             <div className="row">
                 <section>
-                    <div className='card'>
+                    <div className='card' style={{boxShadow: 'rgb(38, 57, 77) 0px 20px 30px -10px'}}>
                         <h5 className='card-header'>Users</h5>
                         <div className='card-body'>
                             <table className='table table-bordered'>
@@ -85,7 +108,7 @@ const AdminManage = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {user.map((us) => 
+                                    {user && user.map((us) => 
                                         <tr key={us.id}> 
                                             <td>{us.id}</td>
                                             <td>{us.username}</td>
@@ -114,12 +137,19 @@ const AdminManage = () => {
                                     )}
                                 </tbody>
                             </table>
-                            {/* <ButtonToolbar>
-                                <button onClick={handleAdd} type="button" className="btn btn-success">
-                                    <i class="fa-solid fa-user-plus"></i>
-                                </button>
-                                <AddUserModal show={addModalShow} onHide={AddModalClose} setUpdated={setIsupdated}></AddUserModal>
-                            </ButtonToolbar> */}
+                        </div>
+                        <div className='mt-4'>
+                            <nav aria-label='Page navigation example'>
+                                <ul className='pagination justify-content-center'>
+                                    {prev &&
+                                     <li className='page-item'><button className='page-link' onClick={() => paginationHandler(prev)}><i className='bi bi-arrow-bar-left'></i>Previous</button></li>
+                                    }
+                                    <span>&nbsp;</span>
+                                    {next &&
+                                     <li className='page-item'><button className='page-link' onClick={() => paginationHandler(next)}><i className='bi bi-arrow-bar-left'></i>Next</button></li>
+                                    }
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </section>

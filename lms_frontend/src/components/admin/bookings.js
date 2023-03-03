@@ -22,6 +22,9 @@ const AdminBooking = () => {
                     setBooking(data)
                 }
             })
+            .catch((error) => {
+                console.log(error.response)
+            })
         return () => {
             mounted = false;
             setIsupdated(false);
@@ -37,7 +40,7 @@ const AdminBooking = () => {
                     <Sidebar />
                 </aside>
                 <section className="col-md-9">
-                    <div className='card'>
+                    <div className='card' style={{boxShadow: 'rgb(38, 57, 77) 0px 20px 30px -10px'}}>
                         <h5 className='card-header'>Bookings</h5>
                         <div className='card-body'>
                             <table className='table table-bordered'>

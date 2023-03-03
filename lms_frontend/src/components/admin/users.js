@@ -13,8 +13,11 @@ const AdminUsers = () => {
         getUser()
             .then(data => {
             if(mounted) {
-                setUser(data)
+                setUser(data['results'])
             }
+            })
+            .catch((error) => {
+                console.log(error.response)
             })
         return () => mounted = false;  
     }, []);

@@ -30,7 +30,7 @@ function UserChangePassword() {
                     <Sidebar />
                 </aside>
                 <section className="col-md-9">
-                    <div className='card'>
+                    <div className='card' style={{boxShadow: 'rgba(0, 0, 0, 0.2) 0px 60px 40px -7px'}}>
                         <div className='card-header'>Change Password</div>
                         {errorMsg && <p className='text-danger mt-2' style={{textAlign: "center"}}>{errorMsg}</p>}
                         <div className='card-body'>

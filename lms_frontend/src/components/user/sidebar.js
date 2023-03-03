@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 const Sidebar = () => {
 
     return (
-        <div className='card'>
+        <div className='card' style={{boxShadow: 'rgb(38, 57, 77) 0px 20px 30px -10px'}}>
             <Link to={`/user-dashboard`} className='card-header'>Dashboard</Link>
             <div className="list-group list-group-flush">
                 <Link to="/" className="list-group-item list-group-item-action text-muted">Book ticket</Link>

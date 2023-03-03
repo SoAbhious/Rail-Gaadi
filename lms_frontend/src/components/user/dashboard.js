@@ -44,7 +44,7 @@ function Dashboard() {
                     <Sidebar />
                 </aside>
                 <section className="col-md-9">
-                    <div className='card'>
+                    <div className='card' style={{boxShadow: 'rgb(38, 57, 77) 0px 20px 30px -10px'}}>
                         <div className='mt-4 ms-4'>
                             <div style={{display: "flex"}}> <h3 style={{flex: 0.5}}>ID: {userData.id}</h3><h3>Username: {userData.username}</h3></div>
                             <hr/>

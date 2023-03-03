@@ -28,6 +28,9 @@ import AddRoutes from './admin/AddRoute'
 import BookTrain from './bookTrain';
 import Ticket from './user/ticket';
 import Payment from './user/payment';
+import PrintTicket from './user/PrintTicket';
+import TrainReport from './admin/trainReport';
+import Stations from './admin/stations';
 
 
 function Main() {
@@ -60,6 +63,9 @@ function Main() {
           <Route path='/bookTrain' element={<BookTrain/>} />
           <Route path='/book-ticket' element={<Ticket/>} />
           <Route path='/payment' element={<Payment/>} />
+          <Route path='/printTicket' element={<PrintTicket/>} />
+          <Route path='/train-report' element={<TrainReport/>} />
+          <Route path='/admin-manage-stations' element={<Stations/>} />
         </Routes>
         {/* <Footer/> */}
       </div>

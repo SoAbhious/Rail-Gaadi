@@ -119,3 +119,9 @@ class TrainStatusSerializer(serializers.ModelSerializer):
         fields = '__all__'
         depth = 1
 
+
+class TrainStatusPutSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TrainStatus
+        fields = '__all__'
+

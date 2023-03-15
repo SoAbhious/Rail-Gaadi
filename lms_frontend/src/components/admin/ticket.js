@@ -61,8 +61,9 @@ const AdminTicket = () => {
 
     return (
         <div className='container card mt-2'>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
             <div ref={componentRef} >
-                <div className="card mt-4 ms-4 me-4">
+                <div className="card mt-4 ms-4 me-4" style={{ boxShadow: 'rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px' }}>
                     <div className="card-header">
                         <h3> Booking Details</h3>
                     </div>
@@ -87,7 +88,7 @@ const AdminTicket = () => {
                     </div>
                 </div>
 
-                <div className="card mt-4 ms-4 me-4">
+                <div className="card mt-4 ms-4 me-4" style={{ boxShadow: 'rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px' }}>
                     <div className="card-header">
                         <h3>Passengers</h3>
                     </div>

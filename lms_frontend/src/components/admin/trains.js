@@ -69,10 +69,10 @@ const AdminTrains = () => {
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
             <div className="row">
                 <section>
-                    <div className='card' style={{boxShadow: 'rgb(38, 57, 77) 0px 20px 30px -10px'}}>
-                        <h5 className='card-header'>Trains</h5>
+                    <div className='card' style={{backgroundColor: '#40445a', boxShadow: 'rgb(38, 57, 77) 0px 20px 30px -10px'}}>
+                        <h5 className='card-header text-white'>Trains</h5>
                         <div className='card-body'>
-                            <table className='table table-bordered'>
+                            <table className='table table-dark table-striped'>
                                 <thead>
                                     <tr>
                                         <th>ID</th>

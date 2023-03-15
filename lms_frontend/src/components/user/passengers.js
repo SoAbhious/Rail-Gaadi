@@ -77,7 +77,7 @@ function Passengers() {
                     style={{boxShadow: 'rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px'}}>
                         <h5 className='card-header'>My passengers</h5>
                         <div className='card-body'>
-                            <table className='table table-bordered'>
+                            <table className='table table-striped table-hover'>
                                 <thead>
                                     <tr>
                                         <th>Name</th>

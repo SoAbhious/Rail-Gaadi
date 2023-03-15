@@ -39,6 +39,7 @@ function Dashboard() {
 
     return (
         <div className="container mt-4">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
             <div className="row">
                 <aside className="col-md-3">
                     <Sidebar />

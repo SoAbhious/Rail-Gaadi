@@ -14,7 +14,7 @@ const Sidebar = () => {
                 <Link to="/user-passengers" className="list-group-item list-group-item-action text-muted">My passengers</Link>
                 <Link to="/user-update-details" className="list-group-item list-group-item-action text-muted">Update details</Link>
                 <Link to="/user-change-password" className="list-group-item list-group-item-action text-muted">Change password</Link>
-                <Link to="/user-logout" className="list-group-item list-group-item-action text-danger">Logout</Link>
+                {/* <Link to="/user-logout" className="list-group-item list-group-item-action text-danger">Logout</Link> */}
             </div>
         </div>
     );

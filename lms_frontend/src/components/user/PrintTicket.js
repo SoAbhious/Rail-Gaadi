@@ -11,23 +11,23 @@ const PrintTicket = () => {
     const componentRef = useRef();
 
 
-    const handlePrint = useReactToPrint ({
-        
+    const handlePrint = useReactToPrint({
+
         content: () => componentRef.current,
         ducumentTitle: 'ticket',
         onAfterPrint: () => alert("Print successful!")
     })
-    
+
     const [bookingData, setBookingData] = useState([]);
     const [isUpdated, setIsupdated] = useState(false);
     const [error, setError] = useState(null);
-    
+
     useEffect(() => {
         let mounted = true;
         if (bookingData.length && !isUpdated) {
             return;
         }
-    
+
         if (!bookingId) {
             return;
         }
@@ -42,47 +42,48 @@ const PrintTicket = () => {
                     setError(error);
                 }
             });
-    
+
         return () => {
             mounted = false;
             setIsupdated(false);
         };
     }, [bookingId]);
 
-    if(!bookingData) return <div>Loading...</div>
-    if(error) return <div>Error Occurred: {error.message}</div>
+    if (!bookingData) return <div>Loading...</div>
+    if (error) return <div>Error Occurred: {error.message}</div>
 
     return (
-    <div className='container card mt-2'>
+        <div className='container card mt-2'>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
             <div ref={componentRef} >
-                <div className="card mt-4 ms-4 me-4">
+                <div className="card mt-4 ms-4 me-4" style={{ boxShadow: 'rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px' }}>
                     <div className="card-header">
                         <h3> Booking Details</h3>
                     </div>
-                    
+
                     <div className="card-body">
-                        {bookingData.id && <span className="card-title fs-5">PNR: {bookingData.id}</span>} &nbsp; &nbsp; {bookingData.userid && <span className="card-title fs-5">User ID: {bookingData.userid.id}</span>} 
-                        <br/><br/>
+                        {bookingData.id && <span className="card-title fs-5">PNR: {bookingData.id}</span>} &nbsp; &nbsp; {bookingData.userid && <span className="card-title fs-5">User ID: {bookingData.userid.id}</span>}
+                        <br /><br />
                         {bookingData.train && <span className="card-title fs-5">Train No.: {bookingData.train.id}</span>} &nbsp; &nbsp; {bookingData.train && <span className="card-title fs-5">Train Name: {bookingData.train.name}</span>}
-                        <br/><br/>
+                        <br /><br />
                         {bookingData.source && <h5 className="card-title">From: {bookingData.source.name}</h5>}
-                        <br/>
+                        <br />
                         {bookingData.destination && <h5 className="card-title">To: {bookingData.destination.name}</h5>}
-                        <br/>
+                        <br />
                         <h5 className="card-text">Class: {bookingData.class_field}</h5>
-                        <br/>
+                        <br />
                         <h5 className="card-text">Travel Date: {bookingData.traveldate}</h5>
-                        <br/>
+                        <br />
                         <h5 className="card-text">Fare: {bookingData.fare}</h5>
-                        <br/>
+                        <br />
                     </div>
                 </div>
 
-                <div className="card mt-4 ms-4 me-4">
+                <div className="card mt-4 ms-4 me-4" style={{ boxShadow: 'rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px' }}>
                     <div className="card-header">
                         <h3>Passengers</h3>
                     </div>
-                    
+
                     <div className="card-body">
                         <table className='table table-bordered'>
                             <thead>
@@ -93,22 +94,22 @@ const PrintTicket = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                            {bookingData.ticket && bookingData.ticket.map((book) =>
-                                        <tr key={book.id}>
+                                {bookingData.ticket && bookingData.ticket.map((book) =>
+                                    <tr key={book.id}>
                                         <td>{book.passenger.name}</td>
                                         <td>{book.passenger.age}</td>
                                         <td>{book.passenger.mobile}</td>
-                                        </tr>   
-                                    )}
+                                    </tr>
+                                )}
                             </tbody>
-                        </table> 
+                        </table>
                     </div>
-                    
+
                 </div>
-            </div> 
-            <div style= {{textAlign: "right"}}>
+            </div>
+            <div style={{ textAlign: "right" }}>
                 <button onClick={handlePrint} className="btn btn-primary mt-2 mb-2 me-4">Print ticket</button>
-            </div>   
+            </div>
         </div>
     );
 

@@ -10,6 +10,9 @@ function Home() {
     const [station2, setStation2] = useState([]);
     const [formErrors, setFormErrors] = useState({})
     const userLoginStatus = localStorage.getItem('userLoginStatus');
+    const adminLoginStatus = localStorage.getItem('adminLoginStatus');
+    localStorage.setItem('bookInProgress', false)
+
     const [formData, setFormData] = useState({
         source: "",
         destination: "",
@@ -112,17 +115,24 @@ function Home() {
                                         Search
                                     </Button>
                                 }
-                                {(formData.source && formData.destination && formData.date) &&
+                                {(userLoginStatus == 'true' && formData.source && formData.destination && formData.date) &&
                                     <Link to='/bookTrain' state={{ data: formData }}>
                                         <Button type='submit' className={homeCSS.buttn}>
                                             Search
                                         </Button>
                                     </Link>
                                 }
-
+                                {(userLoginStatus != 'true' && formData.source && formData.destination && formData.date) &&
+                                    <Link to='/user-login' onClick={() => localStorage.setItem('bookInProgress', true)}
+                                    state={{ data: formData }}>
+                                        <Button type='submit' className={homeCSS.buttn}>
+                                            Search
+                                        </Button>
+                                    </Link>
+                                }
                             </Form.Group>
 
-                            {userLoginStatus != 'true' &&
+                            {userLoginStatus != 'true' && adminLoginStatus != 'true' &&
                                 <>
                                     <div className={homeCSS.cor}>or</div>
                                     <div>

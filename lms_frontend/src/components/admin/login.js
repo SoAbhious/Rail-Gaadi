@@ -28,6 +28,7 @@ function AdminLogin() {
             .then((res)=>{
                 if(res.data.bool == true) {
                     localStorage.setItem('adminLoginStatus', true)
+                    localStorage.setItem('loginStatus', true)
                     localStorage.setItem('adminid', res.data.id)
                     window.location.href='admin-dashboard';
                 } else {

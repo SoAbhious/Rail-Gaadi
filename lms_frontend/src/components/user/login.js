@@ -1,12 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState} from 'react';
 import loginCSS from '../home.module.css';
 import axios from 'axios';
+import BookTrain from '../bookTrain';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 const baseurl='http://127.0.0.1:8000/base/';
 
 
 function UserLogin() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    let formData = location.state?.data
 
     const [errorMsg, setErrorMsg] = useState("");
+    const bookInProgress = localStorage.getItem('bookInProgress')
     const [userLoginData, setuserLoginData] = useState({
         username : '',
         password : ''
@@ -28,8 +35,13 @@ function UserLogin() {
             .then((res)=>{
                 if(res.data.bool == true) {
                     localStorage.setItem('userLoginStatus', true)
+                    localStorage.setItem('loginStatus', true)
                     localStorage.setItem('userid', res.data.id)
-                    window.location.href=`user-dashboard`;
+                    if(bookInProgress == 'true') {
+                        navigate('/bookTrain', {state:{ data: formData }})
+                    } else {
+                        window.location.href=`user-dashboard`;
+                    }
                 } else {
                     setErrorMsg(res.data.msg);
                 }

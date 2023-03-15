@@ -54,7 +54,7 @@ const TrainReport = () => {
                     <div className='card' style={{boxShadow: 'rgba(0, 0, 0, 0.56) 0px 22px 70px 4px'}}>
                         <h5 className='card-header'>Train Report</h5>
                         <div className='card-body'>
-                            <table className='table table-bordered'>
+                            <table className='table table-light table-hover'>
                                 <thead>
                                     <tr>
                                         <th>Train</th>

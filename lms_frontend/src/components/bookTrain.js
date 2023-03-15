@@ -12,6 +12,7 @@ const BookTrain = () => {
 
     const [finalForm, setFinalForm] = useState([]);
     const [flag, setFlag] = useState(false);
+    const bookInProgress = localStorage.getItem('bookInProgress')
     const [selectedClass, setSelectedClass] = useState()
     const [baseFare, setBaseFare] = useState('0')
 
@@ -37,8 +38,12 @@ const BookTrain = () => {
     const date = formData.date.substr(8, 2)
 
 
-
     useEffect(() => {
+        if(bookInProgress == 'true') {
+            localStorage.setItem('bookInProgress', false);
+            window.location.reload();
+        }
+        
         axios.post('http://127.0.0.1:8000/base/helper-route/', sendData)
             .then(response => response.data)
             .then(data => {

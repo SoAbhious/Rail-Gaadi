@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import { updateTrainSeats } from '../../services/trainService';
+import Swal from 'sweetalert2';
 
 const Payment = () => {
     const location = useLocation();
@@ -9,11 +10,17 @@ const Payment = () => {
     const navigate = useNavigate();
 
     const handleSubmit = () => {
+        
         let seats = data['seats']
-        console.log(seats)
         updateTrainSeats(data.id, data['class'], seats)
             .then((result) => {
-                alert("Booking successful!!");
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Your booking has been completed successfully!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
             },
             (error)=>{
                 alert("Booking failed!");

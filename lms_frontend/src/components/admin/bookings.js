@@ -43,7 +43,7 @@ const AdminBooking = () => {
                     <div className='card' style={{boxShadow: 'rgb(38, 57, 77) 0px 20px 30px -10px'}}>
                         <h5 className='card-header'>Bookings</h5>
                         <div className='card-body'>
-                            <table className='table table-bordered'>
+                            <table className='table table-striped table-hover'>
                                 <thead>
                                     <tr>
                                         <th>PNR</th>

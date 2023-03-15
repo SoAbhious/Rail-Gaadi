@@ -21,6 +21,14 @@ const AddUser = () => {
         const aadhar_regex = /^[0-9]{12}$/;
         const password_regex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
         const username_regex = /^[a-z0-9_\.]+$/;
+        const firstname_regex = /^[A-Za-z]{1,50}$/;
+        const lastname_regex = /^[A-Za-z]{1,50}$/;
+        if (!firstname_regex.test(e.target.firstname.value)) {
+            errors.firstname = "Firstname can only contain lower and uppercase letters!";
+        }
+        if (!lastname_regex.test(e.target.lastname.value)) {
+            errors.lastname = "Lastname can only contain lower and uppercase letters!";
+        }
         if (!username_regex.test(e.target.username.value)) {
             errors.username = "Username can only contain lower case letters, numbers (0-9), dot(.) and underscore(_)!";
         }
@@ -33,7 +41,7 @@ const AddUser = () => {
         if (!aadhar_regex.test(e.target.aadhar.value)) {
             errors.aadhar = "Enter a valid AADHAR number!";
         }
-        if (e.target.gender.value != 'male' && e.target.gender.value != 'female' ) {
+        if (e.target.gender.value != 'male' && e.target.gender.value != 'female') {
             errors.gender = "Enter 'male' or 'female'!";
         }
         if (!password_regex.test(e.target.password.value)) {
@@ -42,16 +50,16 @@ const AddUser = () => {
         setFormErrors(errors)
 
 
-        if(Object.keys(errors).length ===0) {
+        if (Object.keys(errors).length === 0) {
             verifyUser(e.target)
-            .then((result) => {
-                // alert(result);
-                // window.location.href='user-login';
-            },
-                (error) => {
-                    alert("Failed to add user!");
-                });
-            
+                .then((result) => {
+                    // alert(result);
+                    // window.location.href='user-login';
+                },
+                    (error) => {
+                        alert("Failed to add user!");
+                    });
+
             e.target.reset();
         }
     };
@@ -75,59 +83,76 @@ const AddUser = () => {
                                 <div className="card-body p-5 shadow-lg text-center">
                                     <h2 className="fw-bold mb-5">Register now</h2>
                                     <Form onSubmit={handleSubmit}>
+                                        
                                         <Form.Group className="mb-4" controlId="username">
                                             <Form.Control type="text" name="username" required placeholder="username" />
+                                            {formErrors.username &&
+                                                <p className='text-danger'>{formErrors.username}</p>
+                                            }
                                         </Form.Group>
-                                        {formErrors.username &&
-                                            <p className='text-danger'>{formErrors.username}</p>
-                                        }
+
                                         <div className="row">
                                             <Form.Group className="col-md-6 mb-4" controlId="firstname">
                                                 <Form.Control type="text" name="firstname" required placeholder="firstname" />
+                                                {formErrors.firstname &&
+                                                    <p className='text-danger'>{formErrors.firstname}</p>
+                                                }
                                             </Form.Group>
+
                                             <Form.Group className="col-md-6 mb-4" controlId="lastname">
                                                 <Form.Control type="text" name="lastName" required placeholder="lastname" />
+                                                {formErrors.lastname &&
+                                                    <p className='text-danger'>{formErrors.lastname}</p>
+                                                }
                                             </Form.Group>
                                         </div>
+
                                         <Form.Group className="mb-4" controlId="password">
                                             <Form.Control type="text" name="password" required placeholder="password" />
+                                            {formErrors.password &&
+                                                <p className='text-danger'>{formErrors.password}</p>
+                                            }
                                         </Form.Group>
-                                        {formErrors.password &&
-                                            <p className='text-danger'>{formErrors.password}</p>
-                                        }
+
                                         <Form.Group className="mb-4" controlId="gender">
                                             <Form.Control type="text" name="gender" required placeholder="gender" />
+                                            {formErrors.gender &&
+                                                <p className='text-danger'>{formErrors.gender}</p>
+                                            }
                                         </Form.Group>
-                                        {formErrors.gender &&
-                                            <p className='text-danger'>{formErrors.gender}</p>
-                                        }
+
                                         <Form.Group className="mb-4" controlId="dob">
                                             <Form.Control type="date" max='2005-03-01' name="dob" required placeholder="dob" />
                                         </Form.Group>
+                                        
                                         <Form.Group className="mb-4" controlId="email">
                                             <Form.Control type="text" name="email" required placeholder="email" />
+                                            {formErrors.email &&
+                                                <p className='text-danger'>{formErrors.email}</p>
+                                            }
                                         </Form.Group>
-                                        {formErrors.email &&
-                                            <p className='text-danger'>{formErrors.email}</p>
-                                        }
+
                                         <Form.Group className="mb-4" controlId="phone">
                                             <Form.Control type="text" name="phone" required placeholder="phone" />
+                                            {formErrors.phone &&
+                                                <p className='text-danger'>{formErrors.phone}</p>
+                                            }
                                         </Form.Group>
-                                        {formErrors.phone &&
-                                            <p className='text-danger'>{formErrors.phone}</p>
-                                        }
+
                                         <Form.Group className="mb-4" controlId="aadhar">
                                             <Form.Control type="text" name="aadhar" required placeholder="aadhar" />
+                                            {formErrors.aadhar &&
+                                                <p className='text-danger'>{formErrors.aadhar}</p>
+                                            }
                                         </Form.Group>
-                                        {formErrors.aadhar &&
-                                            <p className='text-danger'>{formErrors.aadhar}</p>
-                                        }
+
                                         <Form.Group className="d-grid gap-2">
                                             <p></p>
                                             <Button className="rounded" variant="primary" type="submit">
                                                 Submit
                                             </Button>
                                         </Form.Group>
+                                        
                                     </Form>
                                 </div>
                             </div>

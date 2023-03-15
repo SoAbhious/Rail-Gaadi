@@ -7,12 +7,10 @@ import Login from './user/login';
 import Register from './user/register';
 import Dashboard from './user/dashboard';
 import Passengers from './user/passengers';
-// import UpdateDetails from './user/updatedetails';
 import ChangePassword from './user/changepassword';
 import UserBooking from './user/bookings';
 import AdminLogin from './admin/login';
 import AdminDashboard from './admin/dashboard';
-// import AdminUsers from './admin/users';
 import UserUpdateDetails from './user/updatedetails';
 import AdminUpdateDetails from './admin/updatedetails';
 import AdminChangePassword from './admin/changepassword';
@@ -31,6 +29,10 @@ import Payment from './user/payment';
 import PrintTicket from './user/PrintTicket';
 import TrainReport from './admin/trainReport';
 import Stations from './admin/stations';
+import ProtectedUser from './user/ProtectedUser';
+import ProtectedAdmin from './admin/ProtectedAdmin';
+import Protected from './Protected';
+import PageNotFound from './PageNotFound';
 
 
 function Main() {
@@ -42,30 +44,31 @@ function Main() {
           <Route path='/about' element={<About/>} />
           <Route path='/user-login' element={<Login/>} />
           <Route path='/user-register' element={<Register/>} />
-          <Route path='/user-dashboard' element={<Dashboard/>} />
-          <Route path='/user-passengers' element={<Passengers/>} />
-          <Route path='/user-update-details' element={<UserUpdateDetails/>} />
-          <Route path='/user-change-password' element={<ChangePassword/>} />
-          <Route path='/user-bookings' element={<UserBooking/>} />
+          <Route path='/user-dashboard' element={<ProtectedUser Component={Dashboard}/>} />
+          <Route path='/user-passengers' element={<ProtectedUser Component={Passengers}/>} />
+          <Route path='/user-update-details' element={<ProtectedUser Component={UserUpdateDetails}/>} />
+          <Route path='/user-change-password' element={<ProtectedUser Component={ChangePassword}/>} />
+          <Route path='/user-bookings' element={<ProtectedUser Component={UserBooking}/>} />
           <Route path='/admin-login' element={<AdminLogin/>} />
-          <Route path='/admin-dashboard' element={<AdminDashboard/>} />
-          <Route path='/admin-update-details' element={<AdminUpdateDetails/>} />
-          <Route path='/admin-change-password' element={<AdminChangePassword/>} />
-          <Route path='/admin-manage-users' element={<AdminManage/>} />
+          <Route path='/admin-dashboard' element={<ProtectedAdmin Component={AdminDashboard}/>} />
+          <Route path='/admin-update-details' element={<ProtectedAdmin Component={AdminUpdateDetails}/>} />
+          <Route path='/admin-change-password' element={<ProtectedAdmin Component={AdminChangePassword}/>} />
+          <Route path='/admin-manage-users' element={<ProtectedAdmin Component={AdminManage}/>} />
           <Route path='/admin-logout' element={<AdminLogout/>} />
           <Route path='/user-logout' element={<UserLogout/>} />
-          <Route path='/admin-bookings' element={<AdminBooking/>} />
-          <Route path='/admin-bookings/:id' element={<AdminTicket/>} />
-          <Route path='/admin-manage-trains' element={<AdminTrains/>} />
+          <Route path='/admin-bookings' element={<ProtectedAdmin Component={AdminBooking}/>} />
+          <Route path='/admin-bookings/:id' element={<Protected Component={AdminTicket}/>} />
+          <Route path='/admin-manage-trains' element={<ProtectedAdmin Component={AdminTrains}/>} />
           <Route path='/verify-user/:id' element={<VerifyUser/>} />
-          <Route path='/routes' element={<AdminRoutes/>} />
-          <Route path='/add-routes' element={<AddRoutes/>} />
-          <Route path='/bookTrain' element={<BookTrain/>} />
-          <Route path='/book-ticket' element={<Ticket/>} />
-          <Route path='/payment' element={<Payment/>} />
-          <Route path='/printTicket' element={<PrintTicket/>} />
-          <Route path='/train-report' element={<TrainReport/>} />
-          <Route path='/admin-manage-stations' element={<Stations/>} />
+          <Route path='/routes' element={<ProtectedAdmin Component={AdminRoutes}/>} />
+          <Route path='/add-routes' element={<ProtectedAdmin Component={AddRoutes}/>} />
+          <Route path='/bookTrain' element={<ProtectedUser Component={BookTrain}/>} />
+          <Route path='/book-ticket' element={<ProtectedUser Component={Ticket}/>} />
+          <Route path='/payment' element={<ProtectedUser Component={Payment}/>} />
+          <Route path='/printTicket' element={<Protected Component={PrintTicket}/>} />
+          <Route path='/train-report' element={<ProtectedAdmin Component={TrainReport}/>} />
+          <Route path='/admin-manage-stations' element={<ProtectedAdmin Component={Stations}/>} />
+          <Route path='*' element={<PageNotFound/>} />
         </Routes>
         {/* <Footer/> */}
       </div>

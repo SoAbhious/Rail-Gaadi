@@ -31,6 +31,7 @@ urlpatterns = [
     path('post-passengers/', views.NewPassengerView.as_view()),
 
     # ---------Station----------
+    path('stations/', views.StationNewView.as_view()),
     path('station/', views.StationView.as_view()),
     path('station/<int:pk>/', views.StationView.as_view()),
 
